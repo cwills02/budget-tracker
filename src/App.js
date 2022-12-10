@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [amountInput, setAmountInput] = useState('')
+  const [descriptionInput, setDescriptionInput] = useState('')
+  const [total, setTotal] = useState(0)
+
+  const amountInputHandler = (e) => {
+    setAmountInput(e.target.value)
+  }
+
+  const descriptionInputHandler = (e) => {
+    setDescriptionInput(e.target.value)
+  }
+
+  const increment = () => {
+    const amountIncrement = amountInput
+    const newTotal = Number(total) + Number(amountIncrement)
+    setTotal(newTotal)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Budget Tracker</h1>
+      <div className='container'>
+        <input 
+          placeholder='Add amount'
+          onChange={amountInputHandler}
+          value={amountInput}
+        />
+        <input 
+          placeholder='Add Description'
+          onChange={descriptionInputHandler}
+          value={descriptionInput}
+        />
+        <div>
+          <button onClick={increment}>+</button>
+          <button>-</button>
+        </div>
+      </div>
+      <h2>{total}</h2>
     </div>
   );
 }
