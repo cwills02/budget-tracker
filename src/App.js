@@ -7,7 +7,9 @@ function App() {
   const [total, setTotal] = useState(0)
 
   const amountInputHandler = (e) => {
-    setAmountInput(e.target.value)
+    if(!isNaN(Number(e.target.value))) {
+      setAmountInput(Number(e.target.value))
+    }
   }
 
   const descriptionInputHandler = (e) => {
@@ -16,8 +18,16 @@ function App() {
 
   const increment = () => {
     const amountIncrement = amountInput
-    const newTotal = Number(total) + Number(amountIncrement)
+    const newTotal = total + amountIncrement
     setTotal(newTotal)
+    setAmountInput('')
+  }
+
+  const decrement = () => {
+    const amountDecrement = amountInput
+    const newTotal = total - amountDecrement
+    setTotal(newTotal)
+    setAmountInput('')
   }
 
   return (
@@ -36,10 +46,10 @@ function App() {
         />
         <div>
           <button onClick={increment}>+</button>
-          <button>-</button>
+          <button onClick={decrement}>-</button>
         </div>
       </div>
-      <h2>{total}</h2>
+      <h2>${total}</h2>
     </div>
   );
 }
