@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
@@ -6,6 +6,8 @@ function App() {
   const [descriptionInput, setDescriptionInput] = useState('')
   const [total, setTotal] = useState(0)
   const [items, setItems] = useState([])
+
+  const inputRef = useRef(null)
 
   const addItemHandler = () => {
     const newItem = {description: descriptionInput, amount: amountInput}
@@ -15,6 +17,7 @@ function App() {
     }
     setAmountInput('')
     setDescriptionInput('')
+    inputRef.current.focus()
   }
 
   const removeItemHandler = (listItem) => {
@@ -56,13 +59,16 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Budget Tracker</h1>
+      <div className='banner'>
+        <h1>Budget Tracker</h1>
+      </div>
       <div className='container'>
         <input 
           placeholder='Add amount'
           onChange={amountInputHandler}
           value={amountInput}
           type='number'
+          ref={inputRef}
         />
         <input 
           placeholder='Add Description'
